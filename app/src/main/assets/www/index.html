@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Journal</title>
+<style>
+:root{--bg:#f6f8fa;--cd:#fff;--tx:#0f1419;--mu:#5b6873;--ln:#e1e8ed;--ac:#0b78d0;--ax:#fff;--gl:rgba(246,248,250,.74);--sh:0 8px 28px rgba(15,20,25,.14);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0b1014;--cd:#151b21;--tx:#e7e9ea;--mu:#8b98a5;--ln:#26313b;--ac:#4aa8f0;--ax:#06121c;--gl:rgba(11,16,20,.72);--sh:0 8px 28px rgba(0,0,0,.55)}}
+:root[data-theme=dark]{--bg:#0b1014;--cd:#151b21;--tx:#e7e9ea;--mu:#8b98a5;--ln:#26313b;--ac:#4aa8f0;--ax:#06121c;--gl:rgba(11,16,20,.72);--sh:0 8px 28px rgba(0,0,0,.55)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+body.lock{overflow:hidden}
+button,input,textarea{font:inherit;color:inherit}
+button{min-height:44px;min-width:44px;padding:0 14px;border:0;border-radius:999px;background:none;color:var(--ac);cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible,.card:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.pri{background:var(--ac);color:var(--ax);font-weight:600}
+.out,.btn{border:1px solid var(--ln);background:var(--cd);color:var(--ac)}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 16px;border-radius:999px;cursor:pointer;font-size:16px}
+.danger{color:#d4382c}
+.glass{background:var(--gl);-webkit-backdrop-filter:blur(16px) saturate(1.5);backdrop-filter:blur(16px) saturate(1.5);border-bottom:1px solid var(--ln)}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;padding:8px 14px}
+.row{display:flex;align-items:center;gap:8px}.row input{flex:1;min-width:0}.sp{flex:1}.top .row+.row,#fp{margin-top:6px}
+h1{font:600 22px "Source Serif 4",Georgia,serif;margin:0}
+.h2{margin:0;font:600 26px "Source Serif 4",Georgia,serif}
+.h{margin:10px 0 0;font:600 13px system-ui,sans-serif;color:var(--mu);text-transform:uppercase;letter-spacing:.05em}
+input,textarea{width:100%;background:var(--cd);border:1px solid var(--ln);border-radius:14px;padding:10px 14px}
+input[type=search]{-webkit-appearance:none;appearance:none}
+#fp{display:grid;grid-template-columns:1fr 1fr;gap:8px}#fl{grid-column:1/-1}
+main{max-width:640px;margin:0 auto;padding:14px 14px 130px}
+.card{background:var(--cd);border:1px solid var(--ln);border-radius:20px;padding:14px 16px;margin-bottom:12px;cursor:pointer}
+.mu,.meta{color:var(--mu);font-size:13px}
+.card h3{margin:4px 0;font:600 18px "Source Serif 4",Georgia,serif}
+.prev{margin:4px 0 0;font:16px/1.55 "Source Serif 4",Georgia,serif;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;white-space:pre-wrap;overflow-wrap:anywhere}
+.th{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.th img,.ph{display:inline-block;width:84px;height:84px;object-fit:cover;border-radius:12px;background:var(--ln)}
+.more{align-self:center;color:var(--mu)}
+.empty{text-align:center;color:var(--mu);padding:60px 20px}
+.fab{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(18px + env(safe-area-inset-bottom,0px));width:62px;height:62px;padding:0;font-size:34px;line-height:1;z-index:6;border-radius:50%;background:var(--ac);background:color-mix(in srgb,var(--ac) 90%,transparent);color:var(--ax);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:var(--sh)}
+.sheet{position:fixed;inset:0;z-index:20;background:var(--bg);overflow:auto;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:2;display:flex;align-items:center;justify-content:space-between;padding:6px 10px}
+.body{max-width:640px;margin:0 auto;padding:14px;display:grid;gap:12px}
+.txt{font:18px/1.7 "Source Serif 4",Georgia,serif;white-space:pre-wrap;overflow-wrap:anywhere}
+.car{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory}
+.car img,.car .ph{flex:0 0 88%;width:88%;height:auto;max-height:60vh;border-radius:16px;scroll-snap-align:center;cursor:zoom-in}
+.car .ph{height:160px}
+textarea{min-height:42vh;resize:none;font:18px/1.65 "Source Serif 4",Georgia,serif;field-sizing:content}
+#pb{min-height:90px;font:16px/1.5 system-ui,sans-serif}
+.tb{position:relative}.tb button{position:absolute;top:2px;min-height:36px;min-width:36px;padding:0;background:rgba(0,0,0,.68);color:#fff}
+.tb button:first-of-type{right:2px}.tb .mv{left:2px}
+.seg{display:flex;gap:6px}.seg button{flex:1}.seg [aria-pressed=true]{background:var(--ac);color:var(--ax)}
+#dlg{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.45);display:grid;place-items:center;padding:20px}
+.dbox{background:var(--cd);border-radius:22px;padding:20px;width:100%;max-width:380px;display:grid;gap:8px}.dbox p{margin:0 0 6px;white-space:pre-line}
+#lb{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.94);display:grid;place-items:center}#lb img{max-width:100%;max-height:100%;object-fit:contain}
+#lb button{position:absolute;top:calc(10px + env(safe-area-inset-top,0px));right:10px;background:rgba(255,255,255,.2);color:#fff}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(96px + env(safe-area-inset-bottom,0px));z-index:60;background:var(--tx);color:var(--bg);padding:10px 16px;border-radius:999px;max-width:90%;text-align:center}
+label{display:grid;gap:4px;font-size:14px;color:var(--mu)}
+.av{width:96px;height:96px;border-radius:50%;object-fit:cover;background:var(--ln);display:block}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style></head><body>
+<header class="top glass">
+<div class="row"><h1>Journal</h1><span class="sp"></span><button data-a="profile">Profile</button><button data-a="settings">Settings</button></div>
+<div class="row"><input id="q" type="search" placeholder="Search entries" aria-label="Search entries"><button id="ft" data-a="ftog" aria-expanded="false">Filters</button></div>
+<div id="fp" hidden><label>From<input id="ff" type="date"></label><label>To<input id="fe" type="date"></label><input id="fl" placeholder="Location contains…" aria-label="Filter by location"></div>
+<div class="row" id="ab" hidden><span class="mu sp" id="sm" aria-live="polite"></span><button data-a="clear">Clear search &amp; filters</button></div>
+</header>
+<main><div id="list"></div></main>
+<button class="fab" data-a="new" aria-label="New entry" title="New entry">+</button>
+<div class="sheet" id="detail" hidden></div><div class="sheet" id="composer" hidden></div><div class="sheet" id="profile" hidden></div><div class="sheet" id="settings" hidden></div>
+<div id="lb" hidden></div><div id="dlg" hidden></div><div id="toast" role="status" aria-live="polite" hidden></div>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';'),
+uid=()=>crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2),
+fmt=t=>new Date(t).toLocaleString(undefined,{dateStyle:'medium',timeStyle:'short'});
+let db,E=[],q='',F={f:'',e:'',l:''},cur,init,det,DU=[],PP;
+const toast=m=>{const t=$('#toast');t.textContent=m;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(()=>t.hidden=true,3500)};
+const theme=m=>{const r=document.documentElement;if(m==='system')r.removeAttribute('data-theme');else r.dataset.theme=m;try{localStorage.setItem('theme',m)}catch{}try{window.Native&&Native.setTheme(m)}catch{}};
+try{theme(localStorage.getItem('theme')||'system')}catch{}
+const idbOpen=()=>new Promise((ok,no)=>{const r=indexedDB.open('journal',1);r.onupgradeneeded=()=>{r.result.createObjectStore('e',{keyPath:'id'});r.result.createObjectStore('k')};r.onsuccess=()=>ok(r.result);r.onerror=()=>no(r.error)});
+const tx=(s,m,f)=>new Promise((ok,no)=>{const t=db.transaction(s,m),o=f(t);t.oncomplete=()=>ok(o&&o.result);t.onabort=()=>no(t.error||new Error('abort'))});
+const kget=k=>tx('k','readonly',t=>t.objectStore('k').get(k)),kset=(k,v)=>tx('k','readwrite',t=>t.objectStore('k').put(v,k));
+const load=async()=>{E=(await tx('e','readonly',t=>t.objectStore('e').getAll())).sort((a,b)=>b.createdAt-a.createdAt)};
+const b2d=b=>new Promise((ok,no)=>{const r=new FileReader();r.onload=()=>ok(r.result);r.onerror=()=>no(r.error);r.readAsDataURL(b)});
+const d2b=u=>{const[h,b]=u.split(','),a=atob(b),n=new Uint8Array(a.length);for(let i=0;i<a.length;i++)n[i]=a.charCodeAt(i);return new Blob([n],{type:(h.match(/:(.*?)[;,]/)||[,'application/octet-stream'])[1]})};
+const thumb=async b=>{try{const m=await createImageBitmap(b),s=Math.min(1,360/Math.max(m.width,m.height)),c=document.createElement('canvas');c.width=Math.max(1,Math.round(m.width*s));c.height=Math.max(1,Math.round(m.height*s));c.getContext('2d').drawImage(m,0,0,c.width,c.height);m.close&&m.close();return c.toDataURL('image/jpeg',.72)}catch{return null}};
+const dlg=(m,bs)=>new Promise(ok=>{const d=$('#dlg');d.innerHTML=`<div class="dbox" role="alertdialog" aria-modal="true" aria-label="${esc(m)}"><p>${esc(m)}</p>${bs.map((x,i)=>`<button class="out" data-r="${i}">${esc(x)}</button>`).join('')}</div>`;d.hidden=false;d.onclick=e=>{const v=e.target.dataset.r;if(v!=null){d.hidden=true;ok(+v)}};d.querySelector('button').focus()});
+const sh=(id,h)=>{const s=$('#'+id);s.innerHTML=h;s.hidden=false;s.scrollTop=0;document.body.classList.add('lock');s.querySelector('button').focus()};
+const cl=id=>{$('#'+id).hidden=true;document.querySelector('.sheet:not([hidden])')||document.body.classList.remove('lock')};
+
+/* feed */
+const card=e=>`<article class="card" tabindex="0" role="button" data-id="${e.id}"><div class="meta">${fmt(e.createdAt)}${e.loc?' · '+esc(e.loc):''}</div>${e.title?`<h3>${esc(e.title)}</h3>`:''}<p class="prev">${esc(e.text.slice(0,500))}</p>${e.imgs.length?`<div class="th">${e.imgs.slice(0,3).map(i=>i.th?`<img alt="" src="${i.th}">`:'<span class="ph"></span>').join('')}${e.imgs.length>3?`<span class="more">+${e.imgs.length-3}</span>`:''}</div>`:''}</article>`;
+function filt(){const w=q.toLowerCase().split(/\s+/).filter(Boolean),a=F.f?new Date(F.f+'T00:00:00').getTime():-Infinity,z=F.e?new Date(F.e+'T23:59:59.999').getTime():Infinity,l=F.l.trim().toLowerCase();
+return E.filter(e=>{const lc=(e.loc||'').toLowerCase(),h=((e.title||'')+' '+e.text+' '+lc).toLowerCase();return w.every(x=>h.includes(x))&&e.createdAt>=a&&e.createdAt<=z&&(!l||lc.includes(l))})}
+function render(){const L=filt(),n=(F.f?1:0)+(F.e?1:0)+(F.l.trim()?1:0),on=!!(q.trim()||n);
+$('#list').innerHTML=L.length?L.map(card).join(''):`<div class="empty">${E.length?'<p>No entries match your search or filters.</p>':'<p><b>Your journal is empty.</b></p><p>Tap the + button below to write your first entry.</p>'}</div>`;
+$('#ab').hidden=!on;$('#sm').textContent=on?`${L.length} of ${E.length} entries`:'';$('#ft').textContent=n?`Filters (${n})`:'Filters'}
+$('#q').oninput=e=>{q=e.target.value;render()};
+$('#ff').oninput=e=>{F.f=e.target.value;render()};$('#fe').oninput=e=>{F.e=e.target.value;render()};$('#fl').oninput=e=>{F.l=e.target.value;render()};
+$('#list').onclick=e=>{const c=e.target.closest('.card');c&&showDetail(c.dataset.id)};
+$('#list').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){const c=e.target.closest('.card');if(c){e.preventDefault();showDetail(c.dataset.id)}}};
+
+/* detail */
+async function showDetail(id){const e=E.find(x=>x.id===id);if(!e)return;det=e;DU=await Promise.all(e.imgs.map(i=>b2d(i.b).catch(()=>null)));
+sh('detail',`<div class="bar glass"><button data-a="close">← Back</button><span class="row"><button data-a="edit">Edit</button><button class="danger" data-a="del">Delete</button></span></div><div class="body"><div class="meta">${fmt(e.createdAt)}${e.loc?' · '+esc(e.loc):''}${e.editedAt?' · edited '+fmt(e.editedAt):''}</div>${e.title?`<h2 class="h2">${esc(e.title)}</h2>`:''}<div class="txt">${esc(e.text)}</div>${DU.length?`<div class="car" role="group" aria-label="Photos, swipe to browse">${DU.map((d,k)=>d?`<img src="${d}" alt="Photo ${k+1} of ${DU.length}. Tap to enlarge" data-z="${k}" tabindex="0">`:'<span class="ph" role="img" aria-label="Image unavailable"></span>').join('')}</div>`:''}</div>`)}
+
+/* composer */
+const val=()=>({t:$('#ct').value,x:$('#cx').value,l:$('#cl').value});
+const dirty=()=>{const v=val();return JSON.stringify([v.t.trim(),v.x,v.l.trim(),cur.imgs.map(i=>i.id)])!==init};
+const sdNow=()=>{try{dirty()?localStorage.setItem('draft',JSON.stringify({id:cur.id,...val()})):localStorage.removeItem('draft')}catch{}};
+const sd=()=>{clearTimeout(sd.h);sd.h=setTimeout(sdNow,500)};
+const cd=()=>{clearTimeout(sd.h);try{localStorage.removeItem('draft')}catch{}};
+const thumbs=()=>{$('#cth').innerHTML=cur.imgs.map((i,k)=>`<div class="tb">${i.th?`<img alt="Photo ${k+1}" src="${i.th}">`:'<span class="ph"></span>'}<button data-rm="${k}" aria-label="Remove photo ${k+1}">×</button>${k?`<button class="mv" data-mv="${k}" aria-label="Move photo ${k+1} earlier">←</button>`:''}</div>`).join('')};
+function compose(e,d){const b=e||{};cur={id:b.id||null,coords:b.coords||null,imgs:[...(b.imgs||[])]};init=JSON.stringify([b.title||'',b.text||'',b.loc||'',cur.imgs.map(i=>i.id)]);const v=d?{t:d.t||'',x:d.x||'',l:d.l||''}:{t:b.title||'',x:b.text||'',l:b.loc||''};
+sh('composer',`<div class="bar glass"><button data-a="cancel">Cancel</button><strong>${e?'Edit entry':'New entry'}</strong><button class="pri" data-a="save">Save</button></div><div class="body"><input id="ct" placeholder="Title (optional)" aria-label="Title" value="${esc(v.t)}"><textarea id="cx" placeholder="What's on your mind today?" aria-label="Journal entry">${esc(v.x)}</textarea><div class="th" id="cth"></div><div class="row"><label class="btn">Add photos<input id="cf" type="file" accept="image/*" multiple hidden></label></div><input id="cl" placeholder="Location (optional)" aria-label="Location" value="${esc(v.l)}"><div class="row"><button class="out" data-a="geo">Use current location</button></div></div>`);
+thumbs();$('#cx').focus()}
+$('#composer').oninput=sd;
+$('#composer').onchange=async e=>{if(e.target.id!=='cf')return;const fs=[...e.target.files];e.target.value='';toast('Adding photos…');for(const f of fs)cur.imgs.push({id:uid(),n:f.name,t:f.type,b:f,th:await thumb(f)});thumbs();sd();$('#toast').hidden=true};
+async function save(){const v=val(),t=v.t.trim(),l=v.l.trim();
+if(!t&&!v.x.trim()&&!cur.imgs.length)return toast('Write something or add a photo first.');
+const o=cur.id&&E.find(x=>x.id===cur.id),n=Date.now(),e={id:cur.id||uid(),title:t,text:v.x,createdAt:o?o.createdAt:n,editedAt:o?n:null,loc:l,coords:l?cur.coords:null,imgs:cur.imgs};
+try{await tx('e','readwrite',s=>s.objectStore('e').put(e))}catch(er){return toast(er&&er.name==='QuotaExceededError'?'Your device is out of storage. Free up space or export a backup, then try again. Your writing is still here.':'Could not save. Your writing is still here.')}
+try{navigator.storage.persist()}catch{}
+cd();await load();cl('composer');render();if(o)showDetail(e.id)}
+
+/* profile & settings */
+const av=u=>u?`<img class="av" alt="Profile photo" src="${u}">`:'<div class="av" role="img" aria-label="No profile photo"></div>';
+async function openProfile(){const p=await kget('profile')||{};PP=p.photo||null;const u=PP?await b2d(PP).catch(()=>''):'';
+sh('profile',`<div class="bar glass"><button data-a="close">Close</button><strong>Profile</strong><button class="pri" data-a="psave">Save</button></div><div class="body"><div id="pavw">${av(u)}</div><div class="row"><label class="btn">Choose photo<input id="pf" type="file" accept="image/*" hidden></label><button data-a="prm">Remove photo</button></div><label>Name<input id="pn" value="${esc(p.name)}"></label><label>Short bio<textarea id="pb">${esc(p.bio)}</textarea></label><label>Birthday<input id="pd" type="date" value="${esc(p.bday)}"></label><p class="mu">Private to you. Stored only on this device and included in backups. Every field is optional.</p></div>`)}
+$('#profile').onchange=async e=>{if(e.target.id!=='pf'||!e.target.files[0])return;PP=e.target.files[0];$('#pavw').innerHTML=av(await b2d(PP).catch(()=>''))};
+async function openSettings(){let m='system',st='';try{m=localStorage.getItem('theme')||'system'}catch{}
+try{const s=await navigator.storage.estimate();st=`Using ${(s.usage/1048576).toFixed(1)} MB of about ${Math.round(s.quota/1048576)} MB available. `}catch{}
+const ph=E.reduce((a,e)=>a+e.imgs.length,0);
+sh('settings',`<div class="bar glass"><button data-a="close">Close</button><strong>Settings</strong><span></span></div><div class="body"><h2 class="h">Appearance</h2><div class="seg">${['light','dark','system'].map(x=>`<button class="out" data-th="${x}" aria-pressed="${m===x}">${x[0].toUpperCase()+x.slice(1)}</button>`).join('')}</div>
+<h2 class="h">Backup</h2><p class="mu">Export everything (entries, photos, profile) to one file, then import it on another phone.</p><div class="row"><button class="pri" data-a="export">Export backup</button><label class="btn">Import backup<input id="imp" type="file" accept=".json,application/json" hidden></label></div>
+<details><summary>Backup format</summary><p class="mu">One JSON file, journal-backup-YYYY-MM-DD.json: format "journal-backup", version 1, a manifest (exportedAt, counts), the profile, and entries. Each entry has id, title, text, createdAt, editedAt, location, coordinates and its photos in order as data URLs. Imports are validated first and never change your journal if the file is invalid.</p></details>
+<h2 class="h">Storage</h2><p class="mu">${st}${E.length} entries, ${ph} photos. If space runs low, export a backup and delete old photos.</p>
+<h2 class="h">Privacy &amp; location</h2><p class="mu">Entries, photos and profile are stored only on this device, inside this app. No accounts, analytics or sync. Location is requested only when you tap “Use current location”; change that permission in Android Settings → Apps → Journal → Permissions.</p></div>`)}
+async function exportData(){
+const N=window.Native,parts=[],name=`journal-backup-${new Date().toISOString().slice(0,10)}.json`;
+if(N){const ok=await new Promise(r=>{window.__expReady=r;N.exportBegin(name)});if(!ok)return toast('Export cancelled.')}
+const w=s=>{if(N){if(!N.exportWrite(s))throw new Error('write failed')}else parts.push(s)},J=v=>JSON.stringify(v??null),iso=t=>t?new Date(t).toISOString():null;
+toast('Saving backup…');
+try{const p=await kget('profile')||{},img=async b=>{const d=b?await b2d(b).catch(()=>null):null;return d&&d.startsWith('data:')?d:null},put=d=>{for(let i=0;i<d.length;i+=524288)w(d.slice(i,i+524288))};
+let ni=0;E.forEach(e=>ni+=e.imgs.length);
+w(`{"format":"journal-backup","version":1,"exportedAt":${J(iso(Date.now()))},"counts":{"entries":${E.length},"images":${ni}},"profile":{"name":${J(p.name)},"bio":${J(p.bio)},"bday":${J(p.bday)},"photo":`);
+const pd=await img(p.photo);if(pd){w('"');put(pd);w('"')}else w('null');
+w('},"entries":[');let fe=1;
+for(const e of E){w(`${fe?'':','}{"id":${J(e.id)},"title":${J(e.title)},"text":${J(e.text)},"createdAt":${J(iso(e.createdAt))},"editedAt":${J(iso(e.editedAt))},"location":${J(e.loc)},"coords":${J(e.coords)},"images":[`);fe=0;let fi=1;
+for(const i of e.imgs){const d=await img(i.b);if(!d)continue;w(`${fi?'':','}{"name":${J(i.n)},"type":${J(i.t)},"data":"`);put(d);w('"}');fi=0}
+w(']}')}
+w(']}');
+if(N){if(!N.exportEnd(true))throw new Error('close failed');toast('Backup saved.')}
+else{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(parts,{type:'application/json'}));a.download=name;a.click();toast('Backup ready.')}
+}catch(er){if(N)N.exportEnd(false);toast('Export failed. Nothing was changed.')}}
+async function importData(f){const bad=m=>toast(m+' Nothing was changed.');let j;
+try{j=JSON.parse(await f.text())}catch{return bad('That file is not a readable backup.')}
+if(!j||j.format!=='journal-backup'||!Array.isArray(j.entries))return bad('This is not a journal backup.');
+if(typeof j.version!=='number'||j.version>1)return bad('This backup was made by a newer version of the app.');
+if(j.entries.some(x=>!x||typeof x.id!=='string'||typeof x.text!=='string'||isNaN(Date.parse(x.createdAt))||(x.images||[]).some(i=>!i||typeof i.data!=='string'||!i.data.startsWith('data:')))||(j.counts&&j.counts.entries!==j.entries.length))return bad('The backup is incomplete or damaged.');
+const have=new Set(E.map(x=>x.id)),nw=j.entries.filter(x=>!have.has(x.id));
+const r=await dlg(`Backup from ${fmt(Date.parse(j.exportedAt)||Date.now())}\n${j.entries.length} entries in the file, ${nw.length} new to this device.\n\nMerge keeps everything here and adds the new entries. Replace erases this device's journal and uses the backup.`,['Merge','Replace','Cancel']);
+if(r===2||(r===1&&await dlg('Replace all current entries and profile with the backup? This cannot be undone.',['Cancel','Replace'])!==1))return;
+let list=[],np=null;
+try{for(const x of r===1?j.entries:nw){const imgs=[];for(const i of x.images||[]){const b=d2b(i.data);imgs.push({id:uid(),n:i.name||'photo',t:i.type||b.type,b,th:await thumb(b)})}
+list.push({id:x.id,title:x.title||'',text:x.text,createdAt:Date.parse(x.createdAt),editedAt:x.editedAt?Date.parse(x.editedAt):null,loc:x.location||'',coords:x.coords||null,imgs})}
+const p=j.profile;if(p){const cp=r===1?{}:(await kget('profile')||{});np={name:cp.name||p.name||'',bio:cp.bio||p.bio||'',bday:cp.bday||p.bday||'',photo:cp.photo||(p.photo?d2b(p.photo):null)}}
+await tx(['e','k'],'readwrite',t=>{const s=t.objectStore('e');if(r===1)s.clear();list.forEach(x=>s.put(x));if(np)t.objectStore('k').put(np,'profile')})}
+catch{return bad('The import could not be completed (storage may be full).')}
+await load();render();toast(`Imported ${list.length} entries.`);openSettings()}
+$('#settings').onchange=e=>{if(e.target.id==='imp'&&e.target.files[0]){const f=e.target.files[0];e.target.value='';importData(f)}};
+
+/* actions */
+const A={profile:openProfile,settings:openSettings,new:()=>compose(),
+ftog(b){const p=$('#fp');p.hidden=!p.hidden;b.setAttribute('aria-expanded',!p.hidden)},
+clear(){q='';F={f:'',e:'',l:''};['#q','#ff','#fe','#fl'].forEach(s=>$(s).value='');render()},
+close(b){cl(b.closest('.sheet').id)},
+edit(){cl('detail');compose(det)},
+async del(){if(await dlg('Delete this entry and its photos permanently?',['Cancel','Delete'])!==1)return;try{await tx('e','readwrite',s=>s.objectStore('e').delete(det.id))}catch{return toast('Could not delete the entry.')}await load();cl('detail');render()},
+async cancel(){if(dirty()&&await dlg('Discard your changes?',['Keep editing','Discard'])!==1)return;cd();cl('composer')},
+save,export:exportData,
+geo(){if(!navigator.geolocation)return toast('Location is not available here. You can type a place instead.');toast('Finding your location…');
+navigator.geolocation.getCurrentPosition(p=>{cur.coords={lat:+p.coords.latitude.toFixed(5),lng:+p.coords.longitude.toFixed(5)};const i=$('#cl');if(!i.value.trim())i.value=`${cur.coords.lat}, ${cur.coords.lng}`;toast('Location added. You can edit it.');sd()},()=>toast('Could not get your location. You can still type a place.'),{timeout:10000})},
+async psave(){try{await kset('profile',{name:$('#pn').value.trim(),bio:$('#pb').value.trim(),bday:$('#pd').value,photo:PP})}catch{return toast('Could not save the profile (storage may be full).')}cl('profile');toast('Profile saved.')},
+prm(){PP=null;$('#pavw').innerHTML=av('')}};
+document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(b&&A[b.dataset.a])return A[b.dataset.a](b);
+const g=e.target.closest('[data-rm],[data-mv],[data-th],[data-z]');if(!g)return;const d=g.dataset;
+if(d.rm!=null){cur.imgs.splice(+d.rm,1);thumbs();sd()}
+else if(d.mv!=null){const k=+d.mv;[cur.imgs[k-1],cur.imgs[k]]=[cur.imgs[k],cur.imgs[k-1]];thumbs();sd()}
+else if(d.th){theme(d.th);document.querySelectorAll('[data-th]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.th===d.th))}
+else if(d.z!=null){const l=$('#lb');l.innerHTML=`<img src="${DU[+d.z]}" alt="Photo ${+d.z+1}"><button aria-label="Close photo">Close</button>`;l.hidden=false}});
+$('#lb').onclick=()=>$('#lb').hidden=true;
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.dataset&&e.target.dataset.z!=null)e.target.click();if(e.key==='Escape')$('#lb').hidden=true});
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&cur&&!$('#composer').hidden)sdNow()});
+
+window.__back=()=>{if(!$('#lb').hidden){$('#lb').hidden=true;return true}if(!$('#dlg').hidden)return true;const s=[...document.querySelectorAll('.sheet:not([hidden])')].pop();if(!s)return false;if(s.id==='composer')A.cancel();else cl(s.id);return true};
+window.__flush=()=>{if(cur&&!$('#composer').hidden)sdNow()};
+/* start */
+(async()=>{try{db=await idbOpen()}catch{$('#list').innerHTML='<div class="empty"><p>This browser is blocking local storage, so entries can’t be saved here.</p></div>';return}
+await load();render();
+try{const d=JSON.parse(localStorage.getItem('draft')||'null');if(d&&(d.t||d.x||d.l)){if(await dlg('You have an unsaved draft. Restore it?',['Restore','Discard'])===0)compose(E.find(x=>x.id===d.id),d);else cd()}}catch{}})();
+</script></body></html>
